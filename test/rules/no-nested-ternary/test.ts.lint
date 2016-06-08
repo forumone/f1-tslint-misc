@@ -1,0 +1,18 @@
+// Valid
+let a = foo ? bar : baz;
+
+// Invalid
+let b = foo ? (bar ? baz : null) : undefined;
+               ~~~~~~~~~~~~~~~~               [fail]
+
+// Invalid: multiple failures
+let c = foo ? x ? y : z
+              ~~~~~~~~~ [fail]
+            : three ? two : one;
+              ~~~~~~~~~~~~~~~~~  [fail]
+
+// Technically valid, but ugly as all get out. The nesting occurs in a new block.
+let d = foo ? (function noop() { })
+            : function () { return foo ? bar : baz });
+
+[fail]: Do not nest ternary operators.

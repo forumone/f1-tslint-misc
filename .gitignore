@@ -1,0 +1,4 @@
+.tscache
+.vscode
+node_modules
+lib/**/*.js

@@ -1,0 +1,40 @@
+// TODO: Make erorr reporting more precise.
+
+// Invalid: incomplete promise chain as statement
+getPromise()
+~~~~~~~~~~~~
+   .then(bar);
+~~~~~~~~~~~~~~ [fail]
+
+// Valid: complete promise chain as statement
+ getPromise()
+   .then(foo)
+   .done();
+
+ // valid: `x' stores promise chain
+ var x = getPromise().then(foo);
+
+// Invalid: incomplete promise chain as statement
+function invalid() {
+  getPromise()
+  ~~~~~~~~~~~~
+    .then(foo);
+~~~~~~~~~~~~~~~ [fail]
+}
+
+// Valid: promise chain's value is returned from function
+function valid() {
+  return getPromise().then(foo);
+}
+
+// Valid: promise chain's value is stored
+valid = getPromise().then(foo);
+
+// Presumed valid: promise chain's value is passed to a function
+valid(getPromise().then(foo));
+
+// Invalid: binary operator is not assignment
+invalid + getPromise().then(foo);
+          ~~~~~~~~~~~~~~~~~~~~~~  [fail]
+
+[fail]: A promise chain should either use its result or call .done().
