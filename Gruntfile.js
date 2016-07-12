@@ -11,7 +11,7 @@ module.exports = function (grunt) {
           inlineSourceMap: true,
         },
         src: [
-          'src/**/*.ts',
+          'lib/**/*.ts',
           'node_modules/tslint/lib/tslint.d.ts'
         ],
       }
