@@ -47,6 +47,30 @@ This rule does not do control-flow analysis, but it is assumed that the above he
 }
 ```
 
+### `return-type-decl`
+
+Ensures that, for function and method declarations, the return type is declared. This does not affect function _expressions_, as it is assumed that contextual typing is sufficient:
+
+```typescript
+// Invalid: function declaration
+function foo() { }
+
+// Valid: function expression
+[1, 2, 3].forEach(function (n) {
+  /* ... */
+});
+```
+
+#### Configuration
+
+```json
+{
+  "rules": {
+    "return-type-decl": true
+  }
+}
+```
+
 ### `no-nested-ternary`
 
 Don't nest ternaries. This rule does not ban them outright, but it does mandate some level of decency.

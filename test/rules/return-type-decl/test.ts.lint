@@ -1,0 +1,56 @@
+class Foo {
+  goodMethod(): void {
+  }
+
+  goodWithParameters(foo, bar): void {
+  }
+
+  badMethod() {
+  ~~~~~~~~~~~   [Method 'badMethod' does not declare a return type.]
+  }
+
+  badWithParameters(foo, bar) {
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~   [Method 'badWithParameters' does not declare a return type.]
+  }
+}
+
+const Bar = class {
+  goodMethod(): void {
+  }
+
+  goodWithParameters(foo, bar): void {
+  }
+
+  badMethod() {
+  ~~~~~~~~~~~   [Method 'badMethod' does not declare a return type.]
+  }
+
+  badWithParameters(foo, bar) {
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~   [Method 'badWithParameters' does not declare a return type.]
+  }
+};
+
+function goodFunction(): void {
+}
+
+function goodWithParameters(foo, bar): void {
+}
+
+function badFunction() {
+         ~~~~~~~~~~~~~   [Function 'badFunction' does not declare a return type.]
+}
+
+function badWithParameters(foo, bar) {
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~   [Function 'badWithParameters' does not declare a return type.]
+}
+
+// Okay: we only check function declarations
+let okay = function () {};
+
+// Okay: we don't inspect arrow functions
+let okay = () => {};
+
+// Okay: not a function or method declaration
+let okay = {
+  foo() {}
+}
