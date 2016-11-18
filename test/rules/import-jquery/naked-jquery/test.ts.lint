@@ -1,10 +1,8 @@
-import * as $ from 'gotcha';
-import {$} from 'still-fails';
-import {jQuery as nope} from 'some-module';
-import {foo as jQuery} from 'expect-failure';
-
-let x = $('#foo');
+let a = $('#foo');
         ~          [Do not use global jQuery.]
 
-let y = jQuery('#foo');
+let b = jQuery('#foo');
         ~~~~~~          [Do not use global jQuery.]
+
+let okayProperty = foo.$;
+let okayMethod = foo.$();

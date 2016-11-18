@@ -1,0 +1,96 @@
+/* Tests a bunch of identifier references */
+
+if (true) {
+  let $ = 'safe';
+  $('#foo');
+
+  let {jQuery} = safe;
+  jQuery('#foo');
+
+  {
+    // block scoping
+    $('still safe');
+    jQuery('also still safe');
+  }
+}
+
+if (true) {
+  // let jQuery = safe.$
+  let {$: jQuery} = safe;
+
+  // $ isn't in scope
+  $(jQuery);
+  ~          [Do not use global jQuery.]
+
+  jQuery($);
+         ~   [Do not use global jQuery.]
+}
+
+if (true) {
+  // bindings
+
+  // let foo = safe.$
+  let {foo: $} = safe;
+
+  let [jQuery] = safe;
+
+  $(jQuery);
+  jQuery($);
+}
+
+(function () {
+  var $ = 'safe - var';
+  $('safe');
+})();
+
+(function ($) {
+  $('safe: function arg');
+})(123);
+
+(function $ () {
+  $('safe');
+})();
+
+(function () {
+  // safe: class name
+  class $ {
+  }
+
+  $();
+})();
+
+(function () {
+  function $() {}
+
+  $();
+})();
+
+(function () {
+  // let fails = { $: $ }
+  //                  ^ this is why these two cases fail
+  let fails = {
+    $,
+    ~  [Do not use global jQuery.]
+    jQuery,
+    ~~~~~~ [Do not use global jQuery.]
+  };
+
+  let safe = class {
+    $;     // property
+    $();   // method decl
+    $() {} // method w/body
+  };
+
+  let safe = {
+    $: null,  // object property
+    $() {},   // method
+  };
+})();
+
+// Ensure that the top-level scope hasn't accidentally been polluted
+
+$;
+~  [Do not use global jQuery.]
+
+jQuery;
+~~~~~~  [Do not use global jQuery.]

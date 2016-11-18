@@ -1,0 +1,8 @@
+import {$} from 'some-module';
+import {foo as jQuery} from 'some-other-module';
+
+let a = $('#foo');
+
+let b = jQuery('#foo');
+
+let c = foo($);
