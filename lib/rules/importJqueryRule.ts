@@ -1,6 +1,5 @@
 import * as Lint from 'tslint/lib/lint';
 import * as ts from 'typescript';
-import {inspect} from 'util';
 
 export class Rule extends Lint.Rules.AbstractRule {
   public static FAILURE_STRING = 'Do not use global jQuery.';
