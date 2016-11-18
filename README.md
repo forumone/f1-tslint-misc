@@ -71,6 +71,20 @@ function foo() { }
 }
 ```
 
+### `import-jquery`
+
+Requires that jQuery be an imported module. `tsc` does not enforce this due to the way the type definitions are structured. This avoids issues with external scripts that might call `$.noConflict()`.
+
+#### Configuration
+
+```json
+{
+  "rules": {
+    "import-jquery": true
+  }
+}
+```
+
 ### `no-nested-ternary`
 
 Don't nest ternaries. This rule does not ban them outright, but it does mandate some level of decency.

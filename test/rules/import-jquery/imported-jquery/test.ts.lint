@@ -1,0 +1,6 @@
+import * as jQuery from 'jquery';
+
+let x = $('#foo');
+        ~          [Do not use global jQuery.]
+
+let y = jQuery('#foo');
